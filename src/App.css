@@ -1,0 +1,26 @@
+#root {
+  text-align: center;
+   display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+body{
+font-family:cursive;
+background-color: #f9f9f9;
+padding: 0%;
+margin: 0%;
+font-size: x-large;
+color: #f9f9f9;
+background-repeat: repeat-y;
+overflow:hidden;
+}
+
+
+
+
+
+
+.read-the-docs {
+  color: #888;
+}

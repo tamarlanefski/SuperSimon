@@ -1,0 +1,14 @@
+div {
+    color:  #243447;
+    /* font-family: cursive; */
+    font-size:6vw ;
+}
+img {
+    width: 16vh;
+    margin: 10px;
+}
+#wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

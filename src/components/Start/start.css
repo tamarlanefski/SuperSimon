@@ -1,0 +1,9 @@
+
+#startGame {
+ margin-top: -0.8vh;
+ color: #f9f9f9 ;
+}
+#containStartGame{
+    display: flex;
+        justify-content: space-evenly;
+}
