@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 import Simon from '../Simon/simon'
 import SuperSimon from '../Super Simon/superSimon'
 import './main.css'
-import '../../../public/superSimonimg.png'
+import '/superSimonimg.png'
+import UserNameBox from '../UserName/userName'
 
 
 interface IMain {
@@ -16,9 +17,9 @@ const Main: React.FC<IMain> = (props) => {
 
   return (
     <div className="main">
-
-      <SuperSimon elementRef={elementRef} animationRef={animationRef}/>
-      <Simon sequence={props.sequence} elementRef={elementRef} animationRef={animationRef}/>
+      <UserNameBox/>
+      <SuperSimon elementRef={elementRef} animationRef={animationRef} />
+      <Simon sequence={props.sequence} elementRef={elementRef} animationRef={animationRef} />
 
 
     </div>

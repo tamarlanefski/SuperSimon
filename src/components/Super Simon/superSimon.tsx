@@ -10,7 +10,7 @@ const SuperSimon: React.FC<IsuperSimon> = (props) => {
 
   return (
     <div id="wrapper">
-      <img ref={props.animationRef} src="../../../public/animation/wait.gif"></img>
+      <img ref={props.animationRef} src="/animation/wait.gif"></img>
       <div ref={props.elementRef}>
         Super Simon
       </div>

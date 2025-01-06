@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Key from '../Key/key'
-import './simon.css'
-import { Stage, Layer, RegularPolygon } from "react-konva";
+import Key from '../Key/key';
+import './simon.css';
 
 interface ISimon {
   sequence: number[];
@@ -13,21 +12,35 @@ const Simon: React.FC<ISimon> = (props) => {
   const [clickNum, setClickNum] = useState<number>(-1);
   const [stage, setStage] = useState<number>(0);
   const [mode, setMode] = useState<number>(0);
-  const baseColors: string[] = ["#D72638", "#FF5700", " #FFC107", "#4CAF50", "#1E88E5", "#9C27B0"]
-  const lightColors: string[] = ["#FF4D6D", "#FFA333", "#FFE066", "#B9FBC0", "#57C7FF", "#E87BF8"]
-  const [nowColors, setNowColors] = useState<string[]>(baseColors)
-  const successAudio: string = '../../../public/sound/soundsuccess.mp3';
-  const failAudio: string = '../../../public/sound/soundfail.mp3';
+  const [StageComponent, setStageComponent] = useState<any>(null);
+  const [LayerComponent, setLayerComponent] = useState<any>(null);
+  const [RegularPolygonComponent, setRegularPolygonComponent] = useState<any>(null);
+
+  const baseColors: string[] = ["#D72638", "#FF5700", " #FFC107", "#4CAF50", "#1E88E5", "#9C27B0"];
+  const lightColors: string[] = ["#FF4D6D", "#FFA333", "#FFE066", "#B9FBC0", "#57C7FF", "#E87BF8"];
+  const [nowColors, setNowColors] = useState<string[]>(baseColors);
+
+  // טעינה דינמית של הרכיבים
+  useEffect(() => {
+    import('react-konva').then((module) => {
+      setStageComponent(module.Stage);
+      setLayerComponent(module.Layer);
+      setRegularPolygonComponent(module.RegularPolygon);
+    });
+  }, []);
+
+  const successAudio: string = 'public/sound/soundsuccess.mp3';
+  const failAudio: string = 'public/sound/soundfail.mp3';
   const keys = [
-    { x: 465, y: 100, rotation: 0, fill: nowColors[0], sound: '../../../public/sound/sound1.mp3' },
-    { x: 662, y: 117, rotation: 60, fill: nowColors[1], sound: '../../../public/sound/sound2.mp3' },
-    { x: 758, y: 302, rotation: 120, fill: nowColors[2], sound: '../../../public/sound/sound3.mp3' },
-    { x: 638, y: 464, rotation: 180, fill: nowColors[3], sound: '../../../public/sound/sound4.mp3' },
-    { x: 428, y: 440, rotation: 240, fill: nowColors[4], sound: '../../../public/sound/sound5.mp3' },
-    { x: 350, y: 253, rotation: 300, fill: nowColors[5], sound: '../../../public/sound/sound6.mp3' },
+    { x: 465, y: 100, rotation: 0, fill: nowColors[0], sound: 'public/sound/sound1.mp3' },
+    { x: 662, y: 117, rotation: 60, fill: nowColors[1], sound: 'public/sound/sound2.mp3' },
+    { x: 758, y: 302, rotation: 120, fill: nowColors[2], sound: 'public/sound/sound3.mp3' },
+    { x: 638, y: 464, rotation: 180, fill: nowColors[3], sound: 'public/sound/sound4.mp3' },
+    { x: 428, y: 440, rotation: 240, fill: nowColors[4], sound: 'public/sound/sound5.mp3' },
+    { x: 350, y: 253, rotation: 300, fill: nowColors[5], sound: 'public/sound/sound6.mp3' },
   ];
-  
-  //פונקציה להארת המקש והשמעת צליל
+
+  // פונקציה להארת המקש והשמעת צליל
   const LightKey = (index: number) => {
     const audio = new Audio(keys[index].sound);
     audio.play();
@@ -56,18 +69,17 @@ const Simon: React.FC<ISimon> = (props) => {
     }, 1000);
     setStage(0);
     setClickNum(0);
-
   }, [props.sequence]);
 
-  //פונקציה של לחיצת השחקן 
+  // פונקציה של לחיצת השחקן
   const ClientClick = (index: number) => {
     LightKey(index);
     if (mode == 1) {
-      //האם הלחיצה של השחקן נכונה
+      // האם הלחיצה של השחקן נכונה
       if (props.sequence[clickNum] === index) {
-        //אם השחקן גמר את הסבב הנוכחי
+        // אם השחקן גמר את הסבב הנוכחי
         if (clickNum == stage) {
-          //אם נגמר המשחק
+          // אם נגמר המשחק
           if (clickNum == 7) {
             new Audio(successAudio).play();
             const element = props.elementRef.current;
@@ -81,14 +93,13 @@ const Simon: React.FC<ISimon> = (props) => {
               element.style.animationIterationCount = '1';
             }
             if (animation) {
-              animation.src = "../../../public/animation/clapping.gif"
+              animation.src = "public/animation/clapping.gif"
             }
             setMode(0);
           }
           // לא נגמר המשחק
           else {
             setStage((prevStage) => prevStage + 1);
-
           }
           setClickNum(0);
         }
@@ -96,7 +107,7 @@ const Simon: React.FC<ISimon> = (props) => {
           setClickNum((prevStage) => prevStage + 1);
         }
       }
-      //אם השחקן טעה
+      // אם השחקן טעה
       else {
         const animation = props.animationRef.current;
         setTimeout(() => {
@@ -114,18 +125,19 @@ const Simon: React.FC<ISimon> = (props) => {
           }
 
           if (animation) {
-            animation.src = "../../../public/animation/cry.gif"
+            animation.src = "public/animation/cry.gif"
           }
         }, 600)
       }
     }
-  }
+  };
+
   // איטרציה נוספת של המשחק
   useEffect(() => {
-    setMode(0)
-    const animation = props.animationRef.current
+    setMode(0);
+    const animation = props.animationRef.current;
     if (animation) {
-      animation.src = "../../../public/animation/wait.gif"
+      animation.src = "public/animation/wait.gif"
     }
     props.sequence.slice(0, stage + 1).forEach((value, index) => {
       setTimeout(() => {
@@ -138,10 +150,15 @@ const Simon: React.FC<ISimon> = (props) => {
     });
   }, [stage]);
 
+  // אחרי שהרכיבים טעונים, מוצגים אותם
+  if (!StageComponent || !LayerComponent || !RegularPolygonComponent) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <Stage width={845} height={500}>
-      <Layer >
-        <RegularPolygon
+    <StageComponent width={845} height={500}>
+      <LayerComponent>
+        <RegularPolygonComponent
           x={550}
           y={280}
           sides={6}
@@ -150,8 +167,7 @@ const Simon: React.FC<ISimon> = (props) => {
           stroke="#d2d8dd"
           strokeWidth={3}
           rotation={30}
-        >
-        </RegularPolygon>
+        />
         {keys.map((key, index) => (
           <Key
             key={index}
@@ -164,9 +180,9 @@ const Simon: React.FC<ISimon> = (props) => {
             sound={key.sound}
           />
         ))}
-      </Layer>
-    </Stage>
-  )
-}
+      </LayerComponent>
+    </StageComponent>
+  );
+};
 
-export default Simon
+export default Simon;

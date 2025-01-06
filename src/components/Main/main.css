@@ -17,7 +17,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../../../public/superSimonimg.png');
+    background-image: url('/superSimonimg.png');
     background-repeat: repeat;
     background-size: 13vh;
     animation: fadeToBW 11s infinite alternate; /* אנימציה אינסופית */
