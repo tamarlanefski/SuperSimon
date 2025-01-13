@@ -20,8 +20,6 @@ const Main: React.FC<IMain> = (props) => {
       <UserNameBox/>
       <SuperSimon elementRef={elementRef} animationRef={animationRef} />
       <Simon sequence={props.sequence} elementRef={elementRef} animationRef={animationRef} />
-
-
     </div>
   )
 }

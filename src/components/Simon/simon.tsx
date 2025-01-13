@@ -29,15 +29,15 @@ const Simon: React.FC<ISimon> = (props) => {
     });
   }, []);
 
-  const successAudio: string = 'public/sound/soundsuccess.mp3';
-  const failAudio: string = 'public/sound/soundfail.mp3';
+  const successAudio: string = "sound/soundsuccess.mp3";
+  const failAudio: string = "sound/soundfail.mp3";
   const keys = [
-    { x: 465, y: 100, rotation: 0, fill: nowColors[0], sound: 'public/sound/sound1.mp3' },
-    { x: 662, y: 117, rotation: 60, fill: nowColors[1], sound: 'public/sound/sound2.mp3' },
-    { x: 758, y: 302, rotation: 120, fill: nowColors[2], sound: 'public/sound/sound3.mp3' },
-    { x: 638, y: 464, rotation: 180, fill: nowColors[3], sound: 'public/sound/sound4.mp3' },
-    { x: 428, y: 440, rotation: 240, fill: nowColors[4], sound: 'public/sound/sound5.mp3' },
-    { x: 350, y: 253, rotation: 300, fill: nowColors[5], sound: 'public/sound/sound6.mp3' },
+    { x: 465, y: 100, rotation: 0, fill: nowColors[0], sound: "sound/sound1.mp3" },
+    { x: 662, y: 117, rotation: 60, fill: nowColors[1], sound: "sound/sound2.mp3" },
+    { x: 758, y: 302, rotation: 120, fill: nowColors[2], sound: "sound/sound3.mp3" },
+    { x: 638, y: 464, rotation: 180, fill: nowColors[3], sound: "sound/sound4.mp3" },
+    { x: 428, y: 440, rotation: 240, fill: nowColors[4], sound: "sound/sound5.mp3" },
+    { x: 350, y: 253, rotation: 300, fill: nowColors[5], sound: "sound/sound6.mp3" },
   ];
 
   // פונקציה להארת המקש והשמעת צליל
@@ -93,7 +93,7 @@ const Simon: React.FC<ISimon> = (props) => {
               element.style.animationIterationCount = '1';
             }
             if (animation) {
-              animation.src = "public/animation/clapping.gif"
+              animation.src = "animation/clapping.gif"
             }
             setMode(0);
           }
@@ -125,7 +125,7 @@ const Simon: React.FC<ISimon> = (props) => {
           }
 
           if (animation) {
-            animation.src = "public/animation/cry.gif"
+            animation.src = "animation/cry.gif"
           }
         }, 600)
       }
@@ -137,7 +137,7 @@ const Simon: React.FC<ISimon> = (props) => {
     setMode(0);
     const animation = props.animationRef.current;
     if (animation) {
-      animation.src = "public/animation/wait.gif"
+      animation.src = "animation/wait.gif"
     }
     props.sequence.slice(0, stage + 1).forEach((value, index) => {
       setTimeout(() => {
@@ -186,3 +186,6 @@ const Simon: React.FC<ISimon> = (props) => {
 };
 
 export default Simon;
+
+
+
