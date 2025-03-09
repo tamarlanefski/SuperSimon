@@ -16,7 +16,7 @@ const Simon: React.FC<ISimon> = (props) => {
   const [LayerComponent, setLayerComponent] = useState<any>(null);
   const [RegularPolygonComponent, setRegularPolygonComponent] = useState<any>(null);
 
-  const baseColors: string[] = ["#D72638", "#FF5700", " #FFC107", "#4CAF50", "#1E88E5", "#9C27B0"];
+  const baseColors: string[] = ["#D72638", "#FF5700", "#FFC107", "#4CAF50", "#1E88E5", "#9C27B0"];
   const lightColors: string[] = ["#FF4D6D", "#FFA333", "#FFE066", "#B9FBC0", "#57C7FF", "#E87BF8"];
   const [nowColors, setNowColors] = useState<string[]>(baseColors);
 
@@ -31,14 +31,15 @@ const Simon: React.FC<ISimon> = (props) => {
 
   const successAudio: string = "sound/soundsuccess.mp3";
   const failAudio: string = "sound/soundfail.mp3";
-  const keys = [
+
+  const keys = React.useMemo(() => [
     { x: 465, y: 100, rotation: 0, fill: nowColors[0], sound: "sound/sound1.mp3" },
     { x: 662, y: 117, rotation: 60, fill: nowColors[1], sound: "sound/sound2.mp3" },
     { x: 758, y: 302, rotation: 120, fill: nowColors[2], sound: "sound/sound3.mp3" },
     { x: 638, y: 464, rotation: 180, fill: nowColors[3], sound: "sound/sound4.mp3" },
     { x: 428, y: 440, rotation: 240, fill: nowColors[4], sound: "sound/sound5.mp3" },
     { x: 350, y: 253, rotation: 300, fill: nowColors[5], sound: "sound/sound6.mp3" },
-  ];
+  ], [nowColors]);
 
   // פונקציה להארת המקש והשמעת צליל
   const LightKey = (index: number) => {
@@ -50,18 +51,19 @@ const Simon: React.FC<ISimon> = (props) => {
       temp[index] = lightColors[index];
       return temp;
     });
-    // מחזירים את הצבע המקורי אחרי זמן קצר
+   
     setTimeout(() => {
       setNowColors((prevColors) => {
         const resetColors = [...prevColors];
-        resetColors[index] = baseColors[index]; // מחזירים לצבע המקורי
+        resetColors[index] = baseColors[index]; 
         return resetColors;
       });
-    }, 600); // אחרי 600ms
+    }, 600)
   };
 
   // התחלת משחק
   useEffect(() => {
+    if (!props.sequence || props.sequence.length === 0) return;
     setMode(0);
     setTimeout(() => {
       LightKey(props.sequence[0]);
@@ -69,6 +71,10 @@ const Simon: React.FC<ISimon> = (props) => {
     }, 1000);
     setStage(0);
     setClickNum(0);
+    const animation = props.animationRef.current;
+    if (animation) {
+      animation.src = "animation/wait.gif"
+    }
   }, [props.sequence]);
 
   // פונקציה של לחיצת השחקן
@@ -135,13 +141,8 @@ const Simon: React.FC<ISimon> = (props) => {
   // איטרציה נוספת של המשחק
   useEffect(() => {
     setMode(0);
-    const animation = props.animationRef.current;
-    if (animation) {
-      animation.src = "animation/wait.gif"
-    }
     props.sequence.slice(0, stage + 1).forEach((value, index) => {
       setTimeout(() => {
-        console.log(index + " index " + value + " seq[index]");
         LightKey(value);
         if (index == stage) {
           setMode(1);
@@ -186,6 +187,3 @@ const Simon: React.FC<ISimon> = (props) => {
 };
 
 export default Simon;
-
-
-
