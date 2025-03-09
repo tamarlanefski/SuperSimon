@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { BsPersonCircle } from "react-icons/bs";
